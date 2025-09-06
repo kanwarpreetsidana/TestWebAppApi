@@ -1,4 +1,4 @@
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -29,5 +29,13 @@ app.MapControllers();
 // Listen on the port Render provides via environment variable
 //var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 //app.Urls.Add($"http://*:{port}");
+
+
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(port))
+{
+    // Running on Render → bind to provided PORT
+    app.Urls.Add($"http://*:{port}");
+}
 
 app.Run();
